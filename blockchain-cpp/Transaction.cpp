@@ -10,6 +10,7 @@ Transaction::Transaction(unsigned char* from, unsigned char* to, float value, ve
 	this->reciepient = to;
 	this->value = value;
 	this->inputs = inputs;
+	signatureLength = NULL;
 }
 
 string Transaction::calulateHash()
@@ -24,11 +25,11 @@ string Transaction::calulateHash()
 void Transaction::generateSignature(unsigned char* privateKey)
 {
     string data = StringUtil::unsignedCharToString(sender) + StringUtil::unsignedCharToString(reciepient) + to_string(value);
-	signature = StringUtil::sign(privateKey, data);
+	signature = StringUtil::sign(privateKey, data, &signatureLength);
 }
 
 bool Transaction::verifiySignature()
 {
 	string data = StringUtil::unsignedCharToString(sender) + StringUtil::unsignedCharToString(reciepient) + to_string(value);
-    return StringUtil::verifySign(sender, data, signature);
+    return StringUtil::verifySign(sender, data, signature, &signatureLength);
 }

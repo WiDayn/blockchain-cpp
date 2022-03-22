@@ -15,9 +15,9 @@ public:
 	static unsigned char* privateKeyToUnsignedChar(EVP_PKEY* key);
 	static void printfGreen(string s);
 	static void printfRed(string s);
-	static bool sign(EVP_PKEY* key, const char* message, size_t messageLength, unsigned char** signature, size_t* signatureLength);
-	static unsigned char* sign(unsigned char* privateKey, string message);
-	static unsigned char* sign(EVP_PKEY* privateKey, string message);
-	static bool verifySign(unsigned char* publicKey, string data, unsigned char* signature);
-	static bool verifySign(EVP_PKEY* publicKey, string data, unsigned char* signature);
+	static size_t sign(EVP_PKEY* key, const char* message, size_t messageLength, unsigned char** signature, size_t* signatureLength);
+	static unsigned char* sign(unsigned char* privateKey, string message, size_t* signatureLength);
+	static unsigned char* sign(EVP_PKEY* privateKey, string message, size_t* signatureLength);
+	static bool verifySign(unsigned char* publicKey, string data, unsigned char* signature, size_t* signatureLength);
+	static bool verifySign(EVP_PKEY* publicKey, string data, unsigned char* signature, size_t* signatureLength);
 };

@@ -16,7 +16,9 @@ public:
 	unsigned char* sender;
 	unsigned char* reciepient;
 	float value;
+
 	unsigned char* signature;
+	size_t signatureLength;
 
 	vector<TransactionInput> inputs;
 	vector<TransactionOutput> outputs;
