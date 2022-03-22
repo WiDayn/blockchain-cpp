@@ -13,16 +13,22 @@ class Transaction
 {
 public:
 	string transactionId;
-	EVP_PKEY* sender;
-	EVP_PKEY* reciepient;
+	unsigned char* sender;
+	unsigned char* reciepient;
 	float value;
+	unsigned char* signature;
 
 	vector<TransactionInput> inputs;
 	vector<TransactionOutput> outputs;
 
-	Transaction(EVP_PKEY* from, EVP_PKEY* to, float value, vector<TransactionInput> input);
+	Transaction(unsigned char* from, unsigned char* to, float value, vector<TransactionInput> input);
 
 	string calulateHash();
+
+	void generateSignature(unsigned char* privateKey);
+
+	bool verifiySignature();
+
 private:
 	int sequence;
 };

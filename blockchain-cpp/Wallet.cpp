@@ -4,6 +4,15 @@ Wallet::Wallet() {
     generateKeyPair();
 }
 
+EC_GROUP* Wallet::getDefaultEcGroup() {
+    EC_GROUP* ecGroup = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1);
+    EC_GROUP_set_asn1_flag(ecGroup, OPENSSL_EC_NAMED_CURVE);
+    point_conversion_form_t form = POINT_CONVERSION_UNCOMPRESSED;
+    EC_GROUP_set_point_conversion_form(ecGroup, form);
+
+    return ecGroup;
+}
+
 int Wallet::generateKeyPair() {
     EVP_PKEY_CTX* ctx;
 
@@ -18,11 +27,9 @@ int Wallet::generateKeyPair() {
     if (EVP_PKEY_CTX_set_ec_paramgen_curve_nid(ctx, NID_X9_62_prime256v1) <= 0)
         goto err;
 
-    /* Generate key */
     if (EVP_PKEY_keygen(ctx, &pkey) <= 0)
         goto err;
-    StringUtil::printfGreen("Generate keypair successfully!\n");
-    // write rsa private key to file
+    StringUtil::printfGreen("\nGenerate keypair successfully!\n");
 
     ret = PEM_write_bio_PrivateKey(bio_private, pkey, NULL, NULL, 0, NULL, NULL);
     BIO_flush(bio_private);
@@ -30,10 +37,12 @@ int Wallet::generateKeyPair() {
     ret = PEM_write_bio_PUBKEY(bio_public, pkey);
     BIO_flush(bio_public);
     ret = 0;
-    StringUtil::printfGreen("PublicKey:\n");
-    StringUtil::printfGreen(StringUtil::publicKeyToString(pkey) + "\n");
-    StringUtil::printfGreen("PrivateKey:\n");
-    StringUtil::printfGreen(StringUtil::privateKeyToString(pkey) + "\n");
+    publicKeyChar = StringUtil::publicKeyToUnsignedChar(pkey);
+    StringUtil::printfGreen("PublicKey:");
+    cout << publicKeyChar << endl;
+    privateKeyChar = StringUtil::privateKeyToUnsignedChar(pkey);
+    StringUtil::printfGreen("PrivateKey:");
+    cout << privateKeyChar << endl;
 err:
     EVP_PKEY_CTX_free(ctx);
     return ret;

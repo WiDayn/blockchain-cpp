@@ -11,8 +11,11 @@
 class Wallet {
 public:
 	EVP_PKEY* pkey = NULL;
+	unsigned char* publicKeyChar;
+	unsigned char* privateKeyChar;
 
 	Wallet();
 
 	int generateKeyPair();
+	static EC_GROUP* getDefaultEcGroup();
 };
