@@ -22,9 +22,7 @@ int main()
     vector<TransactionInput> k;
     Wallet walletA = Wallet();
     Wallet walletB = Wallet();
-    while (1) {
-        Transaction transaction = Transaction(walletA.publicKeyChar, walletB.publicKeyChar, 5, k);
-        transaction.generateSignature(walletA.privateKeyChar);
-        cout << transaction.verifiySignature() << endl;
-    }
+    Transaction transaction = Transaction(walletA.publicKeyChar, walletB.publicKeyChar, 5, k);
+    transaction.generateSignature(walletA.privateKeyChar);
+    cout << transaction.verifiySignature() << endl;
 }

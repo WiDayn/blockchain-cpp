@@ -29,7 +29,7 @@ int Wallet::generateKeyPair() {
 
     if (EVP_PKEY_keygen(ctx, &pkey) <= 0)
         goto err;
-    StringUtil::printfGreen("\nGenerate keypair successfully!\n");
+    StringUtil::printfGreen("\nGenerate Wallet successfully!\n");
 
     ret = PEM_write_bio_PrivateKey(bio_private, pkey, NULL, NULL, 0, NULL, NULL);
     BIO_flush(bio_private);
