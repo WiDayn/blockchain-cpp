@@ -21,6 +21,24 @@
     <ClCompile Include="StringUtil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Transaction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockChain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Wallet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransactionInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransactionOutput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringUtil.h">
@@ -32,5 +50,20 @@
     <ClInclude Include="BlockChain.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Wallet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Transaction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionInput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionOutput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
