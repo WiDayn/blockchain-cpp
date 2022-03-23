@@ -29,18 +29,17 @@ int main()
 	map<string, TransactionOutput> UTXOs;
 	BlockChain blockChain = BlockChain();
 
-	Transaction genesisTransaction;
-	genesisTransaction.sender = coinbase.publicKeyChar;
-	genesisTransaction.reciepient = walletA.publicKeyChar;
-	genesisTransaction.transactionId = "0";
-	genesisTransaction.value = 100;
-	genesisTransaction.generateSignature(coinbase.privateKeyChar);
-	genesisTransaction.outputs.push_back(TransactionOutput(genesisTransaction.reciepient, genesisTransaction.value, genesisTransaction.transactionId));
-	UTXOs.insert(pair<string, TransactionOutput>(genesisTransaction.outputs[0].id, genesisTransaction.outputs[0]));
+	blockChain.genesisTransaction.sender = coinbase.publicKeyChar;
+	blockChain.genesisTransaction.reciepient = walletA.publicKeyChar;
+	blockChain.genesisTransaction.transactionId = "0";
+	blockChain.genesisTransaction.value = 100;
+	blockChain.genesisTransaction.generateSignature(coinbase.privateKeyChar);
+	blockChain.genesisTransaction.outputs.push_back(TransactionOutput(blockChain.genesisTransaction.reciepient, blockChain.genesisTransaction.value, blockChain.genesisTransaction.transactionId));
+	UTXOs.insert(pair<string, TransactionOutput>(blockChain.genesisTransaction.outputs[0].id, blockChain.genesisTransaction.outputs[0]));
 
 	StringUtil::printfInformation("Creating and Mining Genesis block... ");
 	Block genesis = Block("0");
-	genesis.addTransaction(genesisTransaction, UTXOs);
+	genesis.addTransaction(blockChain.genesisTransaction, UTXOs);
 	blockChain.addBlock(genesis);
 
 	Block block1 = Block(genesis.hash);

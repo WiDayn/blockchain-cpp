@@ -21,7 +21,7 @@ public:
 
 	string calculateHash();
 
-	void mineBlock(int difficulty);
+	string mineBlock(int difficulty);
 
 	bool addTransaction(Transaction transaction, map<string, TransactionOutput>& UTXOs);
 

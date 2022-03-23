@@ -5,6 +5,11 @@
 #include "StringUtil.h"
 
 
+Transaction::Transaction(unsigned char* from)
+{
+	this->sender = from;
+}
+
 Transaction::Transaction(unsigned char* from, unsigned char* to, float value, vector<TransactionInput> inputs, float minimumTransaction)
 {
 	this->sender = from;

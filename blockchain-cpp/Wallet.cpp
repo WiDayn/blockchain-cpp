@@ -69,7 +69,7 @@ Transaction Wallet::sendFunds(unsigned char* recipient, float value, map<string,
 {
     if (getBalance(UTXOs) < value) {
         StringUtil::printfError("#Not Enough funds to send transaction. Transaction Discarded.");
-        return Transaction();
+        return Transaction((unsigned char*)"NULL"); //±íÊ¾¿Õ
     }
 
     vector<TransactionInput> inputs;

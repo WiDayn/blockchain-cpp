@@ -27,6 +27,7 @@ public:
 
 	Transaction() {};
 
+	Transaction(unsigned char* from);
 	Transaction(unsigned char* from, unsigned char* to, float value, vector<TransactionInput> input, float minimumTransaction);
 	Transaction(unsigned char* from, unsigned char* to, float value, vector<TransactionInput> input);
 
