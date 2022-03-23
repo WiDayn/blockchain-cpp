@@ -1,9 +1,9 @@
 #pragma once
-#pragma once
 #include <openssl/ossl_typ.h>
 #include <string>
 #include <vector>
 #include <openssl/err.h>
+#include <map>
 #include "TransactionInput.h"
 #include "TransactionOutput.h"
 
@@ -23,6 +23,11 @@ public:
 	vector<TransactionInput> inputs;
 	vector<TransactionOutput> outputs;
 
+	float minimumTransaction;
+
+	Transaction() {};
+
+	Transaction(unsigned char* from, unsigned char* to, float value, vector<TransactionInput> input, float minimumTransaction);
 	Transaction(unsigned char* from, unsigned char* to, float value, vector<TransactionInput> input);
 
 	string calulateHash();
@@ -30,6 +35,12 @@ public:
 	void generateSignature(unsigned char* privateKey);
 
 	bool verifiySignature();
+
+	bool processTransaction(map<string, TransactionOutput> UTXOs);
+
+	float getInputsValue();
+
+	float getOutputsValue();
 
 private:
 	int sequence;

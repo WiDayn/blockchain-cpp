@@ -104,13 +104,13 @@ size_t StringUtil::sign(EVP_PKEY* key, const char* message, size_t messageLength
 unsigned char* StringUtil::sign(unsigned char* privateKey, string message, size_t* signatureLength) {
 	BIO* bio;
 	if ((bio = BIO_new_mem_buf(privateKey, -1)) == NULL) {
-		StringUtil::printfRed("BIO_new_mem_buf failed!");
+		StringUtil::printfError("BIO_new_mem_buf failed!");
 	};
 
 	EVP_PKEY* key = PEM_read_bio_PrivateKey(bio, NULL, NULL, NULL);
 	unsigned char* publicKeyChar = StringUtil::publicKeyToUnsignedChar(key);
 	if (key == NULL) {
-		StringUtil::printfRed("PEM_read_bio_PUBKEY failed!");
+		StringUtil::printfError("PEM_read_bio_PUBKEY failed!");
 	}
 	BIO_flush(bio);
 	return sign(key, message, signatureLength);
@@ -144,27 +144,53 @@ bool StringUtil::verifySign(EVP_PKEY* publicKey, string data, unsigned char* sig
 
 }
 
+string StringUtil::getMerkleRoot(vector<Transaction> transactions)
+{
+	int n = transactions.size();
+	vector<string> previousTreeLayer;
+	for (Transaction t : transactions) {
+		previousTreeLayer.push_back(t.transactionId);
+	}
+	vector<string> treeLayer = previousTreeLayer;
+	while (n > 1) {
+		// 合并交易的sha，汇总为一个
+		treeLayer = vector<string>();
+		for (int i = 1; i < previousTreeLayer.size(); i++) {
+			treeLayer.push_back(StringUtil::sha256(previousTreeLayer[i - 1] + previousTreeLayer[i]));
+		}
+		n = treeLayer.size();
+		previousTreeLayer = treeLayer;
+	}
+	string merkleRoot = (treeLayer.size() == 1) ? treeLayer[0] : "";
+	return merkleRoot;
+}
+
 bool StringUtil::verifySign(unsigned char* publicKey, string data, unsigned char* signature, size_t* signatureLength)
 {
 	BIO* bio;
 	if ((bio = BIO_new_mem_buf(publicKey, -1)) == NULL) {
-		StringUtil::printfRed("BIO_new_mem_buf failed!");
+		StringUtil::printfError("BIO_new_mem_buf failed!");
 	};
 
 	EVP_PKEY* key = PEM_read_bio_PUBKEY(bio, NULL, NULL, NULL);
 ;	if (key == NULL) {
-		StringUtil::printfRed("PEM_read_bio_PUBKEY failed!");
+		StringUtil::printfError("PEM_read_bio_PUBKEY failed!");
 	}
 	BIO_flush(bio);
 	return verifySign(key, data, signature, signatureLength);
 }
 
-void StringUtil::printfGreen(string s)
+void StringUtil::printfSuccess(string s)
 {
 	cout << "\033[0m\033[1;32m" << s << "\033[0m" << endl;
 }
 
-void StringUtil::printfRed(string s)
+void StringUtil::printfError(string s)
 {
 	cout << "\033[0m\033[1;31m" << s << "\033[0m" << endl;
+}
+
+void StringUtil::printfInformation(string s)
+{
+	cout << "\033[0;34m" << s <<"\033[0m" << endl;
 }

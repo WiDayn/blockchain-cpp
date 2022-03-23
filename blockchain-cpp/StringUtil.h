@@ -4,6 +4,8 @@
 #include <string>
 #include <openssl/sha.h>
 #include <openssl/ossl_typ.h>
+#include <vector>
+#include "Transaction.h"
 using namespace std;
 
 class StringUtil {
@@ -13,11 +15,13 @@ public:
 	static string unsignedCharToString(unsigned char* input);
 	static unsigned char* publicKeyToUnsignedChar(EVP_PKEY* key);
 	static unsigned char* privateKeyToUnsignedChar(EVP_PKEY* key);
-	static void printfGreen(string s);
-	static void printfRed(string s);
+	static void printfSuccess(string s);
+	static void printfError(string s);
+	static void printfInformation(string s);
 	static size_t sign(EVP_PKEY* key, const char* message, size_t messageLength, unsigned char** signature, size_t* signatureLength);
 	static unsigned char* sign(unsigned char* privateKey, string message, size_t* signatureLength);
 	static unsigned char* sign(EVP_PKEY* privateKey, string message, size_t* signatureLength);
 	static bool verifySign(unsigned char* publicKey, string data, unsigned char* signature, size_t* signatureLength);
 	static bool verifySign(EVP_PKEY* publicKey, string data, unsigned char* signature, size_t* signatureLength);
+	static string getMerkleRoot(vector<Transaction> transactions);
 };

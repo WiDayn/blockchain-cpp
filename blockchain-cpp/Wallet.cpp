@@ -1,4 +1,8 @@
 #include "Wallet.h"
+#include "StringUtil.h"
+#include "TransactionOutput.h"
+#include "TransactionInput.h"
+#include "Transaction.h"
 
 Wallet::Wallet() {
     generateKeyPair();
@@ -29,7 +33,7 @@ int Wallet::generateKeyPair() {
 
     if (EVP_PKEY_keygen(ctx, &pkey) <= 0)
         goto err;
-    StringUtil::printfGreen("\nGenerate Wallet successfully!\n");
+    StringUtil::printfSuccess("\nGenerate Wallet successfully!\n");
 
     ret = PEM_write_bio_PrivateKey(bio_private, pkey, NULL, NULL, 0, NULL, NULL);
     BIO_flush(bio_private);
@@ -38,12 +42,52 @@ int Wallet::generateKeyPair() {
     BIO_flush(bio_public);
     ret = 0;
     publicKeyChar = StringUtil::publicKeyToUnsignedChar(pkey);
-    StringUtil::printfGreen("PublicKey:");
+    StringUtil::printfSuccess("PublicKey:");
     cout << publicKeyChar << endl;
     privateKeyChar = StringUtil::privateKeyToUnsignedChar(pkey);
-    StringUtil::printfGreen("PrivateKey:");
+    StringUtil::printfSuccess("PrivateKey:");
     cout << privateKeyChar << endl;
 err:
     EVP_PKEY_CTX_free(ctx);
     return ret;
+}
+
+float Wallet::getBalance(map<string, TransactionOutput> UTXOs)
+{
+    float total = 0;
+    for (auto u : UTXOs) {
+        TransactionOutput UTXO = u.second;
+        if (UTXO.isMine(publicKeyChar)) {
+            this->UTXOs.insert(pair<string, TransactionOutput>(UTXO.id, UTXO));
+            total += UTXO.value;
+        }
+    }
+    return total;
+}
+
+Transaction Wallet::sendFunds(unsigned char* recipient, float value, map<string, TransactionOutput> UTXOs)
+{
+    if (getBalance(UTXOs) < value) {
+        StringUtil::printfError("#Not Enough funds to send transaction. Transaction Discarded.");
+        return Transaction();
+    }
+
+    vector<TransactionInput> inputs;
+
+    float total = 0;
+    for (auto u : this->UTXOs) {
+        TransactionOutput UTXO = u.second;
+        total += UTXO.value;
+        inputs.push_back(TransactionInput(UTXO.id));
+        if (total > value) break;
+    }
+
+    Transaction newTransaction(publicKeyChar, recipient, value, inputs);
+    newTransaction.generateSignature(privateKeyChar);
+
+    for (TransactionInput i : inputs) {
+        UTXOs.erase(i.TransactionOutputId);
+    }
+
+    return newTransaction;
 }
