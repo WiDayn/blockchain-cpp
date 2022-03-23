@@ -23,7 +23,7 @@ public:
 
 	void mineBlock(int difficulty);
 
-	bool addTransaction(Transaction transaction, map<string, TransactionOutput> UTXOs);
+	bool addTransaction(Transaction transaction, map<string, TransactionOutput>& UTXOs);
 
 private:
 	string data; // 需要储存的信息

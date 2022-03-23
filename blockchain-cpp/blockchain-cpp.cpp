@@ -43,5 +43,27 @@ int main()
 	genesis.addTransaction(genesisTransaction, UTXOs);
 	blockChain.addBlock(genesis);
 
-	StringUtil::printfInformation("walletA Balance: " + to_string(walletA.getBalance(UTXOs)));
+	Block block1 = Block(genesis.hash);
+	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
+	StringUtil::printfSuccess("\nWalletA is Attempting to send funds (40) to WalletB...");
+	block1.addTransaction(walletA.sendFunds(walletB.publicKeyChar, 40, UTXOs), UTXOs);
+	blockChain.addBlock(block1);
+	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
+	StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
+	StringUtil::printfSuccess("WalletB's balance is: " + to_string(coinbase.getBalance(UTXOs)));
+
+	Block block2 = Block(block1.hash);
+	StringUtil::printfSuccess("\nWalletA Attempting to send more funds (1000) than it has...");
+	block2.addTransaction(walletA.sendFunds(walletB.publicKeyChar, 1000, UTXOs), UTXOs);
+	blockChain.addBlock(block2);
+	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
+	StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
+
+	Block block3 = Block(block2.hash);
+	StringUtil::printfSuccess("\nWalletB is Attempting to send funds (20) to WalletA...");
+	block3.addTransaction(walletB.sendFunds(walletA.publicKeyChar, 20, UTXOs), UTXOs);
+	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
+	StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
+
+	blockChain.isChainValid();
 }

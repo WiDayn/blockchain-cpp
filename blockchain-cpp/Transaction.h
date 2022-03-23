@@ -36,7 +36,7 @@ public:
 
 	bool verifiySignature();
 
-	bool processTransaction(map<string, TransactionOutput> UTXOs);
+	bool processTransaction(map<string, TransactionOutput>& UTXOs);
 
 	float getInputsValue();
 

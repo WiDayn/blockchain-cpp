@@ -26,7 +26,3 @@ bool BlockChain::isChainValid() {
 		return true;
 	}
 }
-
-void BlockChain::addTransaction(Transaction genesisTransaction, map<string, TransactionOutput> UTXOs)
-{
-}

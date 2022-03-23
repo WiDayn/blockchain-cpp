@@ -20,7 +20,7 @@ Transaction::Transaction(unsigned char* from, unsigned char* to, float value, ve
 	this->sender = from;
 	this->reciepient = to;
 	this->value = value;
-	this->inputs = inputs;
+	this->inputs = input;
 	signatureLength = NULL;
 }
 
@@ -45,14 +45,14 @@ bool Transaction::verifiySignature()
     return StringUtil::verifySign(sender, data, signature, &signatureLength);
 }
 
-bool Transaction::processTransaction(map<string, TransactionOutput> UTXOs)
+bool Transaction::processTransaction(map<string, TransactionOutput>& UTXOs)
 {
 	if (!verifiySignature()) {
 		StringUtil::printfError("#Transaction Signature failed to verify");
 	}
 
-	for (TransactionInput i : inputs) {
-		i.UTXO = UTXOs[i.TransactionOutputId];
+	for (int i = 0; i < inputs.size(); i++) {
+		inputs[i].UTXO = UTXOs[inputs[i].TransactionOutputId];
 	}
 
 	if (getInputsValue() < minimumTransaction) {
@@ -84,7 +84,6 @@ float Transaction::getInputsValue()
 	for (TransactionInput i : inputs) {
 		if (!i.UTXO.id.empty()) {
 			total += i.UTXO.value;
-			// blockChain->UTXOs.erase(i.TransactionOutputId);
 		}
 	}
 	return total;

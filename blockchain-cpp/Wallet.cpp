@@ -52,7 +52,7 @@ err:
     return ret;
 }
 
-float Wallet::getBalance(map<string, TransactionOutput> UTXOs)
+float Wallet::getBalance(map<string, TransactionOutput>& UTXOs)
 {
     float total = 0;
     for (auto u : UTXOs) {
@@ -65,7 +65,7 @@ float Wallet::getBalance(map<string, TransactionOutput> UTXOs)
     return total;
 }
 
-Transaction Wallet::sendFunds(unsigned char* recipient, float value, map<string, TransactionOutput> UTXOs)
+Transaction Wallet::sendFunds(unsigned char* recipient, float value, map<string, TransactionOutput>& UTXOs)
 {
     if (getBalance(UTXOs) < value) {
         StringUtil::printfError("#Not Enough funds to send transaction. Transaction Discarded.");
@@ -86,7 +86,7 @@ Transaction Wallet::sendFunds(unsigned char* recipient, float value, map<string,
     newTransaction.generateSignature(privateKeyChar);
 
     for (TransactionInput i : inputs) {
-        UTXOs.erase(i.TransactionOutputId);
+        this->UTXOs.erase(i.TransactionOutputId);
     }
 
     return newTransaction;

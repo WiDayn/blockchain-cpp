@@ -23,9 +23,9 @@ public:
 
 	int generateKeyPair();
 
-	float getBalance(map<string, TransactionOutput> UTXOs);
+	float getBalance(map<string, TransactionOutput>& UTXOss);
 
-	Transaction sendFunds(unsigned char* recipient, float value, map<string, TransactionOutput> UTXOs);
+	Transaction sendFunds(unsigned char* recipient, float value, map<string, TransactionOutput>& UTXOs);
 
 	static EC_GROUP* getDefaultEcGroup();
 };

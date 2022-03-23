@@ -12,6 +12,4 @@ public:
 	void addBlock(Block block);
 
 	bool isChainValid();
-
-	void addTransaction(Transaction genesisTransaction,  map <string, TransactionOutput> UTXOs);
 };
