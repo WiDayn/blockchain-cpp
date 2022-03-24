@@ -1,3 +1,8 @@
+/*****************************************************************//**
+ * \file   Transaction.h
+ * \author WiDAYN
+ * \date   24 March 2022
+ *********************************************************************/
 #pragma once
 #include <openssl/ossl_typ.h>
 #include <string>

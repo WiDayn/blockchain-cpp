@@ -1,3 +1,8 @@
+/*****************************************************************//**
+ * \file   BlockChain.cpp
+ * \author WiDAYN
+ * \date   24 March 2022
+ *********************************************************************/
 #include "BlockChain.h"
 #include "StringUtil.h"
 #include "Block.h"
@@ -19,8 +24,8 @@ bool BlockChain::isChainValid() {
 
 	for (int i = 1; i < blockChain.size(); i++) {
 		Block currentBlock = blockChain[i];
-		Block previousBlock = blockChain[i-1];
-		
+		Block previousBlock = blockChain[i - 1];
+
 		// 当前块的hash不正确
 		if (!(currentBlock.hash == currentBlock.calculateHash())) {
 			StringUtil::printfError("#Current Hashes not equal");
@@ -39,7 +44,7 @@ bool BlockChain::isChainValid() {
 		TransactionOutput tempOutput;
 		for (int t = 0; t < currentBlock.transactions.size(); t++) {
 			Transaction currentTransaction = currentBlock.transactions[t];
-			
+
 			// 签名错误
 			if (!currentTransaction.verifiySignature()) {
 				StringUtil::printfError("#Signature on Transaction(" + to_string(t) + ") is Invalid");

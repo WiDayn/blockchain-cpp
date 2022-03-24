@@ -1,3 +1,8 @@
+/*****************************************************************//**
+ * \file   StringUtil.cpp
+ * \author WiDAYN
+ * \date   24 March 2022
+ *********************************************************************/
 #include "StringUtil.h"
 #include <iostream>
 #include <vector>
@@ -173,7 +178,7 @@ bool StringUtil::verifySign(unsigned char* publicKey, string data, unsigned char
 	};
 
 	EVP_PKEY* key = PEM_read_bio_PUBKEY(bio, NULL, NULL, NULL);
-;	if (key == NULL) {
+	;	if (key == NULL) {
 		StringUtil::printfError("PEM_read_bio_PUBKEY failed!");
 	}
 	BIO_flush(bio);
@@ -192,5 +197,5 @@ void StringUtil::printfError(string s)
 
 void StringUtil::printfInformation(string s)
 {
-	cout << "\033[0;34m" << s <<"\033[0m" << endl;
+	cout << "\033[0;34m" << s << "\033[0m" << endl;
 }

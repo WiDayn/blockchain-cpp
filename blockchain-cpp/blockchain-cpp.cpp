@@ -1,4 +1,9 @@
-﻿#define stdin  (__acrt_iob_func(0))
+﻿/*****************************************************************//**
+ * \file   blockchain-cpp.cpp
+ * \author WiDAYN
+ * \date   24 March 2022
+ *********************************************************************/
+#define stdin  (__acrt_iob_func(0))
 #define stdout (__acrt_iob_func(1))
 #define stderr (__acrt_iob_func(2))
 #include <stdio.h>
@@ -9,6 +14,7 @@
 #include <openssl/evp.h>
 #include <openssl/dsa.h>
 #include <memory>
+#include <thread>
 #include <map>
 #include "Wallet.h"
 #include "Transaction.h"
@@ -16,19 +22,36 @@
 #include "Block.h"
 #include "StringUtil.h"
 #include "TransactionOutput.h"
+#include "TCP_Server.h"
+#include "TCP_Client.h"
 #pragma warning(disable : 4996)
 #pragma comment(lib,"ws2_32.lib")
 FILE _iob[] = { *stdin, *stdout, *stderr };
 extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
 
+void runServer() {
+	TCP_Server server = TCP_Server();
+}
+
+void runClient() {
+	TCP_Client con = TCP_Client();
+	con.createConnection();
+	con.sendMessage("Ping");
+	con.closeConnection();
+}
+
 int main()
 {
+	thread Server(runServer);
+	thread Client(runClient);
+
+	system("pause");
+
 	Wallet walletA = Wallet();
 	Wallet walletB = Wallet();
 	Wallet coinbase = Wallet();
 	map<string, TransactionOutput> UTXOs;
 	BlockChain blockChain = BlockChain();
-
 	blockChain.genesisTransaction.sender = coinbase.publicKeyChar;
 	blockChain.genesisTransaction.reciepient = walletA.publicKeyChar;
 	blockChain.genesisTransaction.transactionId = "0";

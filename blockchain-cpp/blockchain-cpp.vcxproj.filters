@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\Socket">
+      <UniqueIdentifier>{982d6828-c2bb-465c-8078-cf8c3d3d2425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Socket">
+      <UniqueIdentifier>{0fb5f88a-a233-49e7-b216-2837cf8ab475}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blockchain-cpp.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="TransactionOutput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TCP_Client.cpp">
+      <Filter>源文件\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Server.cpp">
+      <Filter>源文件\Socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringUtil.h">
@@ -61,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="TransactionOutput.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_Client.h">
+      <Filter>头文件\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_Server.h">
+      <Filter>头文件\Socket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

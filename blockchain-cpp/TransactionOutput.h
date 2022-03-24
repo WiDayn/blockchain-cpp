@@ -1,3 +1,8 @@
+/*****************************************************************//**
+ * \file   TransactionOutput.h
+ * \author WiDAYN
+ * \date   24 March 2022
+ *********************************************************************/
 #pragma once
 #include <string>
 using namespace std;

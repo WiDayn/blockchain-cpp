@@ -1,3 +1,8 @@
+/*****************************************************************//**
+ * \file   Block.cpp
+ * \author WiDAYN
+ * \date   24 March 2022
+ *********************************************************************/
 #include "Block.h"
 #include "StringUtil.h"
 #include "Transaction.h"

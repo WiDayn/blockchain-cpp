@@ -1,3 +1,8 @@
+/*****************************************************************//**
+ * \file   TransactionOutput.cpp
+ * \author WiDAYN
+ * \date   24 March 2022
+ *********************************************************************/
 #include "TransactionOutput.h"
 #include "StringUtil.h"
 
@@ -13,4 +18,3 @@ bool TransactionOutput::isMine(unsigned char* publicKey)
 {
 	return (publicKey == reciepient);
 }
- 
