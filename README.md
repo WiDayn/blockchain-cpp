@@ -4,7 +4,9 @@
 ### 背景
 大一下的专业前沿课题选了区块链，遂尝试自己实现
 
-### 参考资料
+### 参考资料(使用库)
+https://github.com/rxi/ini
+
 https://github.com/openssl/openssl
 
 https://github.com/CryptoKass/NoobChain-Tutorial-Part-1
