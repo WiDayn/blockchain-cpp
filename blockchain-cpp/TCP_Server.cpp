@@ -48,7 +48,7 @@ void receiveTCP(SOCKET clientSocket, SOCKADDR_IN client) {
 	return;
 }
 
-TCP_Server::TCP_Server() {
+TCP_Server::TCP_Server(int PORT) {
 	WSAStartup(MAKEWORD(2, 2), &wsaData);
 	serverSocket = socket(PF_INET, SOCK_STREAM, 0);
 	memset(&addr, 0, sizeof(addr));

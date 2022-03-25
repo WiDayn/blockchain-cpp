@@ -151,8 +151,8 @@
     <ClCompile Include="PingHandler.cpp" />
     <ClCompile Include="Routes.cpp" />
     <ClCompile Include="StringUtil.cpp" />
+    <ClCompile Include="TCP_BasicInformation.cpp" />
     <ClCompile Include="TCP_Client.cpp" />
-    <ClCompile Include="TCP_Data.cpp" />
     <ClCompile Include="TCP_Head.cpp" />
     <ClCompile Include="TCP_Ping.cpp" />
     <ClCompile Include="TCP_Send.cpp" />
@@ -168,8 +168,8 @@
     <ClInclude Include="PingHandler.h" />
     <ClInclude Include="Routes.h" />
     <ClInclude Include="StringUtil.h" />
+    <ClInclude Include="TCP_BasicInformation.h" />
     <ClInclude Include="TCP_Client.h" />
-    <ClInclude Include="TCP_Data.h" />
     <ClInclude Include="TCP_Head.h" />
     <ClInclude Include="TCP_Ping.h" />
     <ClInclude Include="TCP_Send.h" />

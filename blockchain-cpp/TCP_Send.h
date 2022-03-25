@@ -6,6 +6,8 @@ public:
 
 	TCP_Send() {};
 
-	static void SendPing(const char* address);
+	static void SendPing(const char* address, int port);
+
+	static void SendBasicInformation(const char* address, int port);
 };
 

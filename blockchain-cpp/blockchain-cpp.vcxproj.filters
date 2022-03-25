@@ -28,30 +28,48 @@
     <Filter Include="头文件\Socket\Package">
       <UniqueIdentifier>{7cbaf80e-55f4-41de-92fb-1337370f13f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Socket\Package\Struct">
+      <UniqueIdentifier>{f34ca635-f9e9-4a2b-8115-d614db488c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Socket\Package">
+      <UniqueIdentifier>{5177a626-8665-4d1d-aa49-34980896ec24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Socket\Package\Struct">
+      <UniqueIdentifier>{5cba269c-54cf-4ae5-9fe9-28e9748141c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Transaction">
+      <UniqueIdentifier>{f33f1d11-dd6d-43b8-acdc-b9cbd5854bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Transaction">
+      <UniqueIdentifier>{bce0575a-2f27-42a7-a6df-80f5305e4bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Util">
+      <UniqueIdentifier>{10268d24-bf88-4100-9888-51711d23cb6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Util">
+      <UniqueIdentifier>{9e61cc20-28ce-472a-8623-e22efcc177a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Wallet">
+      <UniqueIdentifier>{653949f2-45c3-471b-ab9d-9a514b4694ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Wallet">
+      <UniqueIdentifier>{3adea02c-cda6-40c6-949b-1520140724d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Handler">
+      <UniqueIdentifier>{25aef7f3-37ce-42cd-951c-eb24cb53ee1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Handler">
+      <UniqueIdentifier>{95883063-9700-4b0f-bafc-b55194af9ad6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blockchain-cpp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="StringUtil.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Transaction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BlockChain.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Wallet.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TransactionInput.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TransactionOutput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TCP_Client.cpp">
@@ -64,41 +82,41 @@
       <Filter>源文件\Routes</Filter>
     </ClCompile>
     <ClCompile Include="TCP_Head.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TCP_Data.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Socket\Package</Filter>
     </ClCompile>
     <ClCompile Include="TCP_Ping.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Socket\Package\Struct</Filter>
     </ClCompile>
     <ClCompile Include="PingHandler.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Transaction.cpp">
+      <Filter>源文件\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="TransactionInput.cpp">
+      <Filter>源文件\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="TransactionOutput.cpp">
+      <Filter>源文件\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtil.cpp">
+      <Filter>源文件\Util</Filter>
     </ClCompile>
     <ClCompile Include="TCP_Send.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Wallet.cpp">
+      <Filter>源文件\Wallet</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_BasicInformation.cpp">
+      <Filter>源文件\Socket\Package\Struct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StringUtil.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Block.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BlockChain.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Wallet.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Transaction.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TransactionInput.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TransactionOutput.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="TCP_Client.h">
@@ -113,17 +131,32 @@
     <ClInclude Include="TCP_Head.h">
       <Filter>头文件\Socket\Package</Filter>
     </ClInclude>
-    <ClInclude Include="TCP_Data.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="TCP_Ping.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Socket\Package\Struct</Filter>
     </ClInclude>
     <ClInclude Include="PingHandler.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Transaction.h">
+      <Filter>头文件\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionInput.h">
+      <Filter>头文件\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionOutput.h">
+      <Filter>头文件\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtil.h">
+      <Filter>头文件\Util</Filter>
     </ClInclude>
     <ClInclude Include="TCP_Send.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Wallet.h">
+      <Filter>头文件\Wallet</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_BasicInformation.h">
+      <Filter>头文件\Socket\Package\Struct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

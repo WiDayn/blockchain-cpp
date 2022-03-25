@@ -14,8 +14,6 @@
 
 #pragma comment(lib,"ws2_32.lib")		//º”‘ÿ“¿¿µ
 
-#define PORT 8888
-
 class TCP_Server
 {
 public:
@@ -23,7 +21,8 @@ public:
 	SOCKET serverSocket;
 	SOCKADDR_IN addr;
 	SOCKADDR_IN client;
+	int PORT;
 
-	TCP_Server();
+	TCP_Server(int PORT);
 };
 

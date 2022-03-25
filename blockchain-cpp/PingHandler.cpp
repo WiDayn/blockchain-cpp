@@ -11,8 +11,11 @@
 
 PingHandler::PingHandler(char* buf)
 {
+	/*
+		PingHandler会向请求方提供的地址返回本节点的基本情况
+	*/
 	TCP_Ping ping;
 	memset(&ping, 0, sizeof(ping));
-	printf("%d", strlen(buf));
 	memcpy(&ping, buf, sizeof(TCP_Ping));
+
 }

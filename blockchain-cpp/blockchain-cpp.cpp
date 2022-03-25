@@ -33,7 +33,7 @@ FILE _iob[] = { *stdin, *stdout, *stderr };
 extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
 
 void runServer() {
-	TCP_Server server = TCP_Server();
+	TCP_Server server = TCP_Server(8888);
 }
 
 int main()
@@ -41,7 +41,7 @@ int main()
 	thread Server(runServer);
 	Server.detach();
 
-	TCP_Send::SendPing("127.0.0.1");
+	TCP_Send::SendPing("127.0.0.1", 8888);
 
 	Wallet walletA = Wallet();
 	Wallet walletB = Wallet();

@@ -9,7 +9,7 @@
 class Routes
 {
 public:
-	Routes();
+	Routes() {};
 
 	static void HandleBuf(char* ip, TCP_Head head, char* buf);
 };
