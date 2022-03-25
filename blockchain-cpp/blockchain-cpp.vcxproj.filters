@@ -102,14 +102,14 @@
     <ClCompile Include="StringUtil.cpp">
       <Filter>源文件\Util</Filter>
     </ClCompile>
-    <ClCompile Include="TCP_Send.cpp">
-      <Filter>源文件\Util</Filter>
-    </ClCompile>
     <ClCompile Include="Wallet.cpp">
       <Filter>源文件\Wallet</Filter>
     </ClCompile>
     <ClCompile Include="TCP_BasicInformation.cpp">
       <Filter>源文件\Socket\Package\Struct</Filter>
+    </ClCompile>
+    <ClCompile Include="PingBackHandler.cpp">
+      <Filter>源文件\Handler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,14 +149,14 @@
     <ClInclude Include="StringUtil.h">
       <Filter>头文件\Util</Filter>
     </ClInclude>
-    <ClInclude Include="TCP_Send.h">
-      <Filter>头文件\Util</Filter>
-    </ClInclude>
     <ClInclude Include="Wallet.h">
       <Filter>头文件\Wallet</Filter>
     </ClInclude>
     <ClInclude Include="TCP_BasicInformation.h">
       <Filter>头文件\Socket\Package\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="PingBackHandler.h">
+      <Filter>头文件\Handler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

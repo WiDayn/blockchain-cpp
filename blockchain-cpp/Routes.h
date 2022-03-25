@@ -6,11 +6,11 @@
 #pragma once
 #include <WTypesbase.h>
 #include "TCP_Head.h"
+#include "BlockChain.h"
 class Routes
 {
 public:
 	Routes() {};
 
-	static void HandleBuf(char* ip, TCP_Head head, char* buf);
+	static void HandleBuf(char* ip, TCP_Head head, char* buf, BlockChain& blockChain);
 };
-

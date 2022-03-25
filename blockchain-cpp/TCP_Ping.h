@@ -9,4 +9,6 @@ public:
 	TCP_Ping();
 
 	TCP_Ping(char* requestAddress, char* callBackAddress, int callBackPort);
+
+	bool send(const char* address, int port);
 };

@@ -15,4 +15,3 @@ public:
 	TransactionOutput UTXO;
 	TransactionInput(string transationOutputId);
 };
-

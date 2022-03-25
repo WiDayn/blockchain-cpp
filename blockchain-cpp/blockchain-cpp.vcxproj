@@ -148,6 +148,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="blockchain-cpp.cpp" />
     <ClCompile Include="BlockChain.cpp" />
+    <ClCompile Include="PingBackHandler.cpp" />
     <ClCompile Include="PingHandler.cpp" />
     <ClCompile Include="Routes.cpp" />
     <ClCompile Include="StringUtil.cpp" />
@@ -155,7 +156,6 @@
     <ClCompile Include="TCP_Client.cpp" />
     <ClCompile Include="TCP_Head.cpp" />
     <ClCompile Include="TCP_Ping.cpp" />
-    <ClCompile Include="TCP_Send.cpp" />
     <ClCompile Include="TCP_Server.cpp" />
     <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="TransactionInput.cpp" />
@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockChain.h" />
+    <ClInclude Include="PingBackHandler.h" />
     <ClInclude Include="PingHandler.h" />
     <ClInclude Include="Routes.h" />
     <ClInclude Include="StringUtil.h" />
@@ -172,7 +173,6 @@
     <ClInclude Include="TCP_Client.h" />
     <ClInclude Include="TCP_Head.h" />
     <ClInclude Include="TCP_Ping.h" />
-    <ClInclude Include="TCP_Send.h" />
     <ClInclude Include="TCP_Server.h" />
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="TransactionInput.h" />

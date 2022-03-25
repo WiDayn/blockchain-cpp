@@ -11,8 +11,7 @@
 #include <Ws2tcpip.h>
 #include <Winsock2.h>
 #include "StringUtil.h"
-
-#pragma comment(lib,"ws2_32.lib")		//º”‘ÿ“¿¿µ
+#include "BlockChain.h"
 
 class TCP_Server
 {
@@ -23,6 +22,6 @@ public:
 	SOCKADDR_IN client;
 	int PORT;
 
-	TCP_Server(int PORT);
+	TCP_Server(int PORT, BlockChain& blockChain);
 };
 

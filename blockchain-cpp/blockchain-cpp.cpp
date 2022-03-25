@@ -26,28 +26,28 @@
 #include "TCP_Client.h"
 #include "TCP_Head.h"
 #include "TCP_Ping.h"
-#include "TCP_Send.h"
 #pragma warning(disable : 4996)
 #pragma comment(lib,"ws2_32.lib")
 FILE _iob[] = { *stdin, *stdout, *stderr };
 extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
 
-void runServer() {
-	TCP_Server server = TCP_Server(8888);
+void runServer(BlockChain& blockChain) {
+	TCP_Server server = TCP_Server(8888, blockChain);
 }
 
 int main()
 {
-	thread Server(runServer);
+	BlockChain blockChain = BlockChain();
+	thread Server(runServer, ref(blockChain));
 	Server.detach();
 
-	TCP_Send::SendPing("127.0.0.1", 8888);
+	TCP_Ping ping = TCP_Ping();
+	ping.send("127.0.0.1", 8888);
 
 	Wallet walletA = Wallet();
 	Wallet walletB = Wallet();
 	Wallet coinbase = Wallet();
 	map<string, TransactionOutput> UTXOs;
-	BlockChain blockChain = BlockChain();
 	blockChain.genesisTransaction.sender = coinbase.publicKeyChar;
 	blockChain.genesisTransaction.reciepient = walletA.publicKeyChar;
 	blockChain.genesisTransaction.transactionId = "0";

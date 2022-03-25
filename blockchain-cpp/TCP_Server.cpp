@@ -8,7 +8,7 @@
 #include "Routes.h"
 #include "TCP_Head.h"
 
-void receiveTCP(SOCKET clientSocket, SOCKADDR_IN client) {
+void receiveTCP(SOCKET clientSocket, SOCKADDR_IN client, BlockChain& blockChain) {
 	if (clientSocket == -1) {
 		StringUtil::printfError("accept ");
 		return;
@@ -43,12 +43,12 @@ void receiveTCP(SOCKET clientSocket, SOCKADDR_IN client) {
 		len -= sizeof(buf);
 		Rlen += sizeof(buf);
 	}
-	Routes::HandleBuf(ip, head, data);
+	Routes::HandleBuf(ip, head, data, blockChain);
 	closesocket(clientSocket);
 	return;
 }
 
-TCP_Server::TCP_Server(int PORT) {
+TCP_Server::TCP_Server(int PORT, BlockChain& blockChain) {
 	WSAStartup(MAKEWORD(2, 2), &wsaData);
 	serverSocket = socket(PF_INET, SOCK_STREAM, 0);
 	memset(&addr, 0, sizeof(addr));
@@ -70,7 +70,7 @@ TCP_Server::TCP_Server(int PORT) {
 		int len = sizeof(client);
 		SOCKET clientSocket = accept(serverSocket, (struct sockaddr*)&client, &len);
 		// 开一个子线程去处理请求，自己继续监听
-		thread Handler(receiveTCP, clientSocket, client);
+		thread Handler(receiveTCP, clientSocket, client, ref(blockChain));
 		Handler.detach();
 	}
 	closesocket(serverSocket);
