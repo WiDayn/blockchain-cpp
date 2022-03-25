@@ -69,6 +69,15 @@
     <ClCompile Include="TCP_Data.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TCP_Ping.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PingHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Send.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringUtil.h">
@@ -105,6 +114,15 @@
       <Filter>头文件\Socket\Package</Filter>
     </ClInclude>
     <ClInclude Include="TCP_Data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_Ping.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PingHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_Send.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

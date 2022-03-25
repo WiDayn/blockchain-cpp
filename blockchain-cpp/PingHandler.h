@@ -1,16 +1,11 @@
 /*****************************************************************//**
- * \file   Routes.h
+ * \file   PingHandler.h
  * \author WiDAYN
- * \date   24 March 2022
+ * \date   25 March 2022
  *********************************************************************/
 #pragma once
-#include <WTypesbase.h>
-#include "TCP_Head.h"
-class Routes
+class PingHandler
 {
 public:
-	Routes();
-
-	static void HandleBuf(char* ip, TCP_Head head, char* buf);
+	PingHandler(char* buf);
 };
-

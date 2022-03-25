@@ -13,7 +13,8 @@ void receiveTCP(SOCKET clientSocket, SOCKADDR_IN client) {
 		StringUtil::printfError("accept ");
 		return;
 	}
-	WCHAR ip[16] = TEXT("0");
+	char ip[INET_ADDRSTRLEN];
+	inet_ntop(AF_INET, &client.sin_addr, ip, sizeof(ip));
 	TCP_Head head = TCP_Head();
 	memset(&head, 0, sizeof(head));
 	char buf[100];
@@ -42,7 +43,7 @@ void receiveTCP(SOCKET clientSocket, SOCKADDR_IN client) {
 		len -= sizeof(buf);
 		Rlen += sizeof(buf);
 	}
-	printf("%s", data);
+	Routes::HandleBuf(ip, head, data);
 	closesocket(clientSocket);
 	return;
 }
