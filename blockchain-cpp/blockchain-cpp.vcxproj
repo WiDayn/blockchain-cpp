@@ -148,6 +148,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="blockchain-cpp.cpp" />
     <ClCompile Include="BlockChain.cpp" />
+    <ClCompile Include="ini.cpp" />
     <ClCompile Include="PingBackHandler.cpp" />
     <ClCompile Include="PingHandler.cpp" />
     <ClCompile Include="Routes.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockChain.h" />
+    <ClInclude Include="ini.h" />
     <ClInclude Include="PingBackHandler.h" />
     <ClInclude Include="PingHandler.h" />
     <ClInclude Include="Routes.h" />
