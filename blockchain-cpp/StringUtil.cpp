@@ -9,6 +9,7 @@
 #include <openssl/bio.h>
 #include <openssl/pem.h>
 #include "Wallet.h"
+#include <wtypes.h>
 using namespace std;
 
 string StringUtil::sha256(const string str)
@@ -33,6 +34,19 @@ string StringUtil::longToString(long int t)
 	ss << t;
 	ss >> result;
 	return result;
+}
+
+string StringUtil::WcharToString(wchar_t* wchar)
+{
+	string szDst;
+	wchar_t* wText = wchar;
+	DWORD dwNum = WideCharToMultiByte(CP_OEMCP, NULL, wText, -1, NULL, 0, NULL, FALSE);// WideCharToMultiByte的运用
+	char* psText; // psText为char*的临时数组，作为赋值给std::string的中间变量
+	psText = new char[dwNum];
+	WideCharToMultiByte(CP_OEMCP, NULL, wText, -1, psText, dwNum, NULL, FALSE);// WideCharToMultiByte的再次运用
+	szDst = psText;// std::string赋值
+	delete[]psText;// psText的清除
+	return szDst;
 }
 
 unsigned char* StringUtil::publicKeyToUnsignedChar(EVP_PKEY* key)

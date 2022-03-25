@@ -18,6 +18,7 @@ public:
 	static string sha256(const string str);
 	static string longToString(long int t);
 	static string unsignedCharToString(unsigned char* input);
+	static string WcharToString(wchar_t* wchar);
 	static unsigned char* publicKeyToUnsignedChar(EVP_PKEY* key);
 	static unsigned char* privateKeyToUnsignedChar(EVP_PKEY* key);
 	static void printfSuccess(string s);

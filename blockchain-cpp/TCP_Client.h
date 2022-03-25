@@ -14,18 +14,18 @@ using namespace std;
 
 class TCP_Client {
 private:
-	WSADATA wsaData;
 	SOCKET fd_socket;
-	SOCKADDR_IN addr;
+	const char* address;
 
 public:
 	int err = 0;  //0: no error 1:winsock load error   2:failed to create socket  3:failed to connect
 	int state = 0;
-	TCP_Client();
+	TCP_Client(const char* address);
+	~TCP_Client();
 
 	bool createConnection();
 
-	bool sendMessage(const char* s);
+	bool sendMessage(const char* s, int len);
 
 	bool closeConnection();
 };

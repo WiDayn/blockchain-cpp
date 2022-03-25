@@ -19,6 +19,15 @@
     <Filter Include="源文件\Socket">
       <UniqueIdentifier>{0fb5f88a-a233-49e7-b216-2837cf8ab475}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Routes">
+      <UniqueIdentifier>{83c69e4d-4b13-4639-a1c6-db8e254ca448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Routes">
+      <UniqueIdentifier>{64b6cc0e-c220-4c7c-9d58-54365508af50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Socket\Package">
+      <UniqueIdentifier>{7cbaf80e-55f4-41de-92fb-1337370f13f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="blockchain-cpp.cpp">
@@ -51,6 +60,15 @@
     <ClCompile Include="TCP_Server.cpp">
       <Filter>源文件\Socket</Filter>
     </ClCompile>
+    <ClCompile Include="Routes.cpp">
+      <Filter>源文件\Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Head.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Data.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringUtil.h">
@@ -79,6 +97,15 @@
     </ClInclude>
     <ClInclude Include="TCP_Server.h">
       <Filter>头文件\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="Routes.h">
+      <Filter>头文件\Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_Head.h">
+      <Filter>头文件\Socket\Package</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_Data.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

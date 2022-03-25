@@ -148,8 +148,11 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="blockchain-cpp.cpp" />
     <ClCompile Include="BlockChain.cpp" />
+    <ClCompile Include="Routes.cpp" />
     <ClCompile Include="StringUtil.cpp" />
     <ClCompile Include="TCP_Client.cpp" />
+    <ClCompile Include="TCP_Data.cpp" />
+    <ClCompile Include="TCP_Head.cpp" />
     <ClCompile Include="TCP_Server.cpp" />
     <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="TransactionInput.cpp" />
@@ -159,8 +162,11 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockChain.h" />
+    <ClInclude Include="Routes.h" />
     <ClInclude Include="StringUtil.h" />
     <ClInclude Include="TCP_Client.h" />
+    <ClInclude Include="TCP_Data.h" />
+    <ClInclude Include="TCP_Head.h" />
     <ClInclude Include="TCP_Server.h" />
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="TransactionInput.h" />

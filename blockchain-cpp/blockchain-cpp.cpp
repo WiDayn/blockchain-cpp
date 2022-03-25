@@ -24,6 +24,7 @@
 #include "TransactionOutput.h"
 #include "TCP_Server.h"
 #include "TCP_Client.h"
+#include "TCP_Head.h"
 #pragma warning(disable : 4996)
 #pragma comment(lib,"ws2_32.lib")
 FILE _iob[] = { *stdin, *stdout, *stderr };
@@ -34,18 +35,25 @@ void runServer() {
 }
 
 void runClient() {
-	TCP_Client con = TCP_Client();
+	TCP_Client con = TCP_Client("127.0.0.1");
 	con.createConnection();
-	con.sendMessage("Ping");
-	con.closeConnection();
+	TCP_Head head = TCP_Head("Ping", sizeof("123"));
+	char data[] = "123";
+	char package[100];
+	memcpy(package, &head, sizeof(TCP_Head));
+	memcpy(package + sizeof(head), data, sizeof(data));
+	con.sendMessage(package, sizeof(package));
 }
 
 int main()
 {
 	thread Server(runServer);
-	thread Client(runClient);
-
-	system("pause");
+	Server.detach();
+	while (1) {
+		thread Client1(runClient);
+		Client1.detach();
+		Sleep(1000);
+	}
 
 	Wallet walletA = Wallet();
 	Wallet walletB = Wallet();

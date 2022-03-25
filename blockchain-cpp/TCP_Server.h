@@ -25,6 +25,5 @@ public:
 	SOCKADDR_IN client;
 
 	TCP_Server();
-
 };
 
