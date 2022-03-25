@@ -12,7 +12,7 @@ TCP_Client::TCP_Client(const char* address)
 	WSAStartup(MAKEWORD(2, 2), &wsaData);
 	fd_socket = socket(PF_INET, SOCK_STREAM, 0);
 	if (fd_socket == -1) {
-		StringUtil::printfError("socket ");
+		StringUtil::printfError("Socket error");
 	}
 }
 

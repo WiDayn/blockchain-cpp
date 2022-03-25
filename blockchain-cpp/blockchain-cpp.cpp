@@ -37,12 +37,17 @@ void runServer() {
 void runClient() {
 	TCP_Client con = TCP_Client("127.0.0.1");
 	con.createConnection();
-	TCP_Head head = TCP_Head("Ping", sizeof("123"));
 	char data[] = "123";
-	char package[100];
+	TCP_Head head = TCP_Head("Ping", sizeof(data));
+	char* package = (char*)malloc(sizeof(char) * (sizeof(TCP_Head) + sizeof(data)));
 	memcpy(package, &head, sizeof(TCP_Head));
-	memcpy(package + sizeof(head), data, sizeof(data));
-	con.sendMessage(package, sizeof(package));
+	memcpy(package + sizeof(TCP_Head), data, sizeof(data));
+
+	printf("%lld", strlen(package));
+	for (int i = 0; i < strlen(package); i++) {
+		printf("%c", package[i]);
+	}
+	con.sendMessage(package, sizeof(char) * (sizeof(TCP_Head) + sizeof(data)));
 }
 
 int main()
@@ -52,7 +57,7 @@ int main()
 	while (1) {
 		thread Client1(runClient);
 		Client1.detach();
-		Sleep(1000);
+		Sleep(1000000);
 	}
 
 	Wallet walletA = Wallet();
