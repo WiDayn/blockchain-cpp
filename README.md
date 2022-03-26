@@ -5,6 +5,8 @@
 大一下的专业前沿课题选了区块链，遂尝试自己实现
 
 ### 参考资料(使用库)
+https://www.boost.org/users/history/version_1_78_0.html
+
 https://github.com/rxi/ini
 
 https://github.com/openssl/openssl
