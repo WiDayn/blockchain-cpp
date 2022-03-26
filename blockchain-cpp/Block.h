@@ -16,10 +16,25 @@ using namespace std;
 class Block
 {
 public:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version)
+	{
+		ar& data;
+		ar& timeStrap;
+		ar& nonce;
+		ar& hash;
+		ar& previousHash;
+		ar& merkleRoot;
+		ar& transactions;
+	}
+
 	string hash; // 本身的Hash
 	string previousHash; // 前一个区块的Hash
 	string merkleRoot;
 	vector<Transaction> transactions;
+
+	Block() {};
 
 	Block(string previousHash);
 	~Block();

@@ -26,23 +26,33 @@
 #include "TCP_Client.h"
 #include "TCP_Head.h"
 #include "TCP_Ping.h"
+#include "ini.h"
+#include "SaveChain.h"
 #pragma warning(disable : 4996)
 #pragma comment(lib,"ws2_32.lib")
 FILE _iob[] = { *stdin, *stdout, *stderr };
 extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
 
-void runServer(BlockChain& blockChain) {
-	TCP_Server server = TCP_Server(8888, blockChain);
+void runServer(ini_t* config, BlockChain& blockChain) {
+	int port;
+	ini_sget(config, "basic", "port", "%d", &port);
+	if (port < 1 || port > 65535) {
+		StringUtil::printfError("Error port");
+		return;
+	}
+	TCP_Server server = TCP_Server(port, blockChain);
 }
 
 int main()
 {
+	ini_t* config = ini_load("./config.ini");
 	BlockChain blockChain = BlockChain();
-	thread Server(runServer, ref(blockChain));
-	Server.detach();
+	SaveChain::load(blockChain, config);
+	//thread Server(runServer, config, ref(blockChain));
+	//Server.detach();
 
-	TCP_Ping ping = TCP_Ping();
-	ping.send("127.0.0.1", 8888);
+	//TCP_Ping ping = TCP_Ping();
+	//ping.send("127.0.0.1", 8888);
 
 	Wallet walletA = Wallet();
 	Wallet walletB = Wallet();
@@ -84,4 +94,5 @@ int main()
 	StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
 
 	blockChain.isChainValid();
+	SaveChain::save(blockChain, config);
 }

@@ -55,10 +55,22 @@ unsigned char* StringUtil::publicKeyToUnsignedChar(EVP_PKEY* key)
 	PEM_write_bio_PUBKEY(publicBIO, key);
 
 	int publicKeyLen = BIO_pending(publicBIO);
-	unsigned char* publicKeyChar = (unsigned char*)malloc(publicKeyLen);
+	unsigned char* publicKeyChar = (unsigned char*)malloc(publicKeyLen + 1);
 	BIO_read(publicBIO, publicKeyChar, publicKeyLen);
 	publicKeyChar[publicKeyLen] = '\0';
 	return publicKeyChar;
+}
+
+string StringUtil::publicKeyToString(EVP_PKEY* key)
+{
+	BIO* publicBIO = BIO_new(BIO_s_mem());
+	PEM_write_bio_PUBKEY(publicBIO, key);
+
+	int publicKeyLen = BIO_pending(publicBIO);
+	unsigned char* publicKeyChar = (unsigned char*)malloc(publicKeyLen + 1);
+	BIO_read(publicBIO, publicKeyChar, publicKeyLen);
+	publicKeyChar[publicKeyLen] = '\0';
+	return StringUtil::unsignedCharToString(publicKeyChar);
 }
 
 unsigned char* StringUtil::privateKeyToUnsignedChar(EVP_PKEY* key)
@@ -72,6 +84,17 @@ unsigned char* StringUtil::privateKeyToUnsignedChar(EVP_PKEY* key)
 	return privateKeyChar;
 }
 
+string StringUtil::privateKeyToString(EVP_PKEY* key)
+{
+	BIO* privateBIO = BIO_new(BIO_s_mem());
+	PEM_write_bio_PrivateKey(privateBIO, key, NULL, NULL, 0, 0, NULL);
+	int privateKeyLen = BIO_pending(privateBIO);
+	unsigned char* privateKeyChar = (unsigned char*)malloc(privateKeyLen);
+	BIO_read(privateBIO, privateKeyChar, privateKeyLen);
+	privateKeyChar[privateKeyLen] = '\0';
+	return StringUtil::unsignedCharToString(privateKeyChar);
+}
+
 string StringUtil::unsignedCharToString(unsigned char* input)
 {
 	string str;
@@ -79,14 +102,14 @@ string StringUtil::unsignedCharToString(unsigned char* input)
 	return str;
 }
 
-unsigned char* StringUtil::sign(EVP_PKEY* key, string message, size_t* signatureLength) {
-	unsigned char* signature = NULL;
-	if (sign(key, message.c_str(), strlen(message.c_str()), &signature, signatureLength)) {
+string StringUtil::sign(EVP_PKEY* key, string message, size_t* signatureLength) {
+	string signature;
+	if (sign(key, message, message.length(), signature, signatureLength)) {
 		return signature;
 	}
 }
 
-size_t StringUtil::sign(EVP_PKEY* key, const char* message, size_t messageLength, unsigned char** signature, size_t* signatureLength)
+size_t StringUtil::sign(EVP_PKEY* key, string message, size_t messageLength, string& signature, size_t* signatureLength)
 {
 	EVP_MD_CTX* signCTX = NULL;
 
@@ -98,36 +121,39 @@ size_t StringUtil::sign(EVP_PKEY* key, const char* message, size_t messageLength
 		return false;
 	}
 
-	if (EVP_DigestSignUpdate(signCTX, message, messageLength) != 1) {
+	if (EVP_DigestSignUpdate(signCTX, message.c_str(), messageLength) != 1) {
 		return false;
 	}
 
 	if (EVP_DigestSignFinal(signCTX, NULL, signatureLength) != 1) {
 		return false;
 	}
-
-	if (!(*signature = (unsigned char*)OPENSSL_malloc(sizeof(unsigned char) * (*signatureLength)))) {
+	unsigned char* bufSignature = NULL;
+	if (!(bufSignature = (unsigned char*)OPENSSL_malloc(sizeof(unsigned char) * (*signatureLength + 1)))) {
 		return 0;
 	}
 
-	if (EVP_DigestSignFinal(signCTX, *signature, signatureLength) != 1) {
+	if (EVP_DigestSignFinal(signCTX, bufSignature, signatureLength) != 1) {
 		return false;
 	}
 
 	EVP_MD_CTX_free(signCTX);
 
+	//Ç¿ÖÆ×ª»»
+	for (int i = 0; i < *signatureLength; i++) {
+		signature += ((char)bufSignature[i]);
+	}
 	return *signatureLength;
 }
 
 
-unsigned char* StringUtil::sign(unsigned char* privateKey, string message, size_t* signatureLength) {
+string StringUtil::sign(string privateKey, string message, size_t* signatureLength) {
 	BIO* bio;
-	if ((bio = BIO_new_mem_buf(privateKey, -1)) == NULL) {
+	if ((bio = BIO_new_mem_buf((unsigned char*)privateKey.c_str(), -1)) == NULL) {
 		StringUtil::printfError("BIO_new_mem_buf failed!");
 	};
-
 	EVP_PKEY* key = PEM_read_bio_PrivateKey(bio, NULL, NULL, NULL);
-	unsigned char* publicKeyChar = StringUtil::publicKeyToUnsignedChar(key);
+	string publicKeyChar = StringUtil::publicKeyToString(key);
 	if (key == NULL) {
 		StringUtil::printfError("PEM_read_bio_PUBKEY failed!");
 	}
@@ -135,7 +161,7 @@ unsigned char* StringUtil::sign(unsigned char* privateKey, string message, size_
 	return sign(key, message, signatureLength);
 }
 
-bool StringUtil::verifySign(EVP_PKEY* publicKey, string data, unsigned char* signature, size_t* signatureLength) {
+bool StringUtil::verifySign(EVP_PKEY* publicKey, string data, string signature, size_t* signatureLength) {
 	EVP_MD_CTX* mdctx = NULL;
 	int ret = 0;
 
@@ -152,7 +178,7 @@ bool StringUtil::verifySign(EVP_PKEY* publicKey, string data, unsigned char* sig
 		return false;
 	}
 
-	if (1 == EVP_DigestVerifyFinal(mdctx, signature, *signatureLength))
+	if (1 == EVP_DigestVerifyFinal(mdctx, (unsigned char*)signature.c_str(), *signatureLength))
 	{
 		return true;
 	}
@@ -184,10 +210,10 @@ string StringUtil::getMerkleRoot(vector<Transaction> transactions)
 	return merkleRoot;
 }
 
-bool StringUtil::verifySign(unsigned char* publicKey, string data, unsigned char* signature, size_t* signatureLength)
+bool StringUtil::verifySign(string publicKey, string data, string signature, size_t* signatureLength)
 {
 	BIO* bio;
-	if ((bio = BIO_new_mem_buf(publicKey, -1)) == NULL) {
+	if ((bio = BIO_new_mem_buf(publicKey.c_str(), -1)) == NULL) {
 		StringUtil::printfError("BIO_new_mem_buf failed!");
 	};
 

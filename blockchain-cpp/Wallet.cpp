@@ -46,10 +46,10 @@ int Wallet::generateKeyPair() {
 	ret = PEM_write_bio_PUBKEY(bio_public, pkey);
 	BIO_flush(bio_public);
 	ret = 0;
-	publicKeyChar = StringUtil::publicKeyToUnsignedChar(pkey);
+	publicKeyChar = StringUtil::publicKeyToString(pkey);
 	StringUtil::printfSuccess("PublicKey:");
 	cout << publicKeyChar << endl;
-	privateKeyChar = StringUtil::privateKeyToUnsignedChar(pkey);
+	privateKeyChar = StringUtil::privateKeyToString(pkey);
 	StringUtil::printfSuccess("PrivateKey:");
 	cout << privateKeyChar << endl;
 err:
@@ -70,11 +70,11 @@ float Wallet::getBalance(map<string, TransactionOutput>& UTXOs)
 	return total;
 }
 
-Transaction Wallet::sendFunds(unsigned char* recipient, float value, map<string, TransactionOutput>& UTXOs)
+Transaction Wallet::sendFunds(string recipient, float value, map<string, TransactionOutput>& UTXOs)
 {
 	if (getBalance(UTXOs) < value) {
 		StringUtil::printfError("#Not Enough funds to send transaction. Transaction Discarded.");
-		return Transaction((unsigned char*)"NULL"); //表示空
+		return Transaction("NULL"); //表示空
 	}
 
 	vector<TransactionInput> inputs;

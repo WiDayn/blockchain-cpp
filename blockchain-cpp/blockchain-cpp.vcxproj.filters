@@ -61,11 +61,20 @@
     <Filter Include="头文件\Handler">
       <UniqueIdentifier>{95883063-9700-4b0f-bafc-b55194af9ad6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\Util\ini">
-      <UniqueIdentifier>{acc2497d-3abf-4648-aaf4-731192e4f991}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\Util\ini">
       <UniqueIdentifier>{54bf0079-daaf-4ab2-87fa-11c6db4599a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Util\Files">
+      <UniqueIdentifier>{008562f5-2afe-48de-801b-cba45f8b6396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Util\Files\ini">
+      <UniqueIdentifier>{acc2497d-3abf-4648-aaf4-731192e4f991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Util\Files\SaveChain">
+      <UniqueIdentifier>{bc9ddfcb-8d3e-4e9c-b830-7670280c3e1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Util\SaveChain">
+      <UniqueIdentifier>{9b7f32c1-5a53-46e4-97a5-18a9352ba42b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +129,9 @@
     <ClCompile Include="ini.cpp">
       <Filter>源文件\Util\ini</Filter>
     </ClCompile>
+    <ClCompile Include="SaveChain.cpp">
+      <Filter>源文件\Util\SaveChain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -168,7 +180,10 @@
       <Filter>头文件\Handler</Filter>
     </ClInclude>
     <ClInclude Include="ini.h">
-      <Filter>头文件\Util\ini</Filter>
+      <Filter>头文件\Util\Files\ini</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveChain.h">
+      <Filter>头文件\Util\Files\SaveChain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

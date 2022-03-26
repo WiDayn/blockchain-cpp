@@ -15,19 +15,21 @@ using namespace std;
 
 class StringUtil {
 public:
-	static string sha256(const string str);
+	static string sha256(string str);
 	static string longToString(long int t);
 	static string unsignedCharToString(unsigned char* input);
 	static string WcharToString(wchar_t* wchar);
 	static unsigned char* publicKeyToUnsignedChar(EVP_PKEY* key);
+	static string publicKeyToString(EVP_PKEY* key);
 	static unsigned char* privateKeyToUnsignedChar(EVP_PKEY* key);
+	static string privateKeyToString(EVP_PKEY* key);
 	static void printfSuccess(string s);
 	static void printfError(string s);
 	static void printfInformation(string s);
-	static size_t sign(EVP_PKEY* key, const char* message, size_t messageLength, unsigned char** signature, size_t* signatureLength);
-	static unsigned char* sign(unsigned char* privateKey, string message, size_t* signatureLength);
-	static unsigned char* sign(EVP_PKEY* privateKey, string message, size_t* signatureLength);
-	static bool verifySign(unsigned char* publicKey, string data, unsigned char* signature, size_t* signatureLength);
-	static bool verifySign(EVP_PKEY* publicKey, string data, unsigned char* signature, size_t* signatureLength);
+	static size_t sign(EVP_PKEY* key, string message, size_t messageLength, string& signature, size_t* signatureLength);
+	static string sign(string privateKey, string message, size_t* signatureLength);
+	static string sign(EVP_PKEY* privateKey, string message, size_t* signatureLength);
+	static bool verifySign(string publicKey, string data, string signature, size_t* signatureLength);
+	static bool verifySign(EVP_PKEY* publicKey, string data, string signature, size_t* signatureLength);
 	static string getMerkleRoot(vector<Transaction> transactions);
 };

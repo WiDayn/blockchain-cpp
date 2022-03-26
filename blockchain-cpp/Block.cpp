@@ -40,7 +40,7 @@ string Block::mineBlock(int difficulty) {
 
 bool Block::addTransaction(Transaction transaction, map<string, TransactionOutput>& UTXOs)
 {
-	if (transaction.sender == (unsigned char*)"NULL") return false;
+	if (transaction.sender == "NULL") return false;
 	if ((previousHash != "0")) {
 		if ((transaction.processTransaction(UTXOs) != true)) {
 			StringUtil::printfError("#Transaction failed to process. Discarded.");

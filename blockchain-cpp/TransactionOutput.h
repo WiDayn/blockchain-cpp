@@ -11,14 +11,23 @@ class TransactionOutput
 {
 public:
 	string id;
-	unsigned char* reciepient;
+	string reciepient;
 	float value;
 	string parentTransactionId;
 
 	TransactionOutput() {};
 
-	TransactionOutput(unsigned char* reciepient, float value, string parentTransactionId);
+	TransactionOutput(string reciepient, float value, string parentTransactionId);
 
-	bool isMine(unsigned char* publicKey);
+	bool isMine(string publicKey);
+
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version)
+	{
+		ar& id;
+		ar& reciepient;
+		ar& value;
+		ar& parentTransactionId;
+	}
 };
 

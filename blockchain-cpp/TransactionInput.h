@@ -11,7 +11,17 @@ using namespace std;
 class TransactionInput
 {
 public:
+	template<class TransactionInput>
+	void serialize(TransactionInput& ar, const unsigned int version)
+	{
+		ar& TransactionOutputId;
+		ar& UTXO;
+	}
+
 	string TransactionOutputId;
 	TransactionOutput UTXO;
+
+	TransactionInput() {};
+
 	TransactionInput(string transationOutputId);
 };

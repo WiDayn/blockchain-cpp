@@ -18,8 +18,8 @@
 class Wallet {
 public:
 	EVP_PKEY* pkey = NULL;
-	unsigned char* publicKeyChar;
-	unsigned char* privateKeyChar;
+	string publicKeyChar;
+	string privateKeyChar;
 
 	// 只记录属于当前钱包的交易
 	map<string, TransactionOutput> UTXOs;
@@ -30,7 +30,7 @@ public:
 
 	float getBalance(map<string, TransactionOutput>& UTXOss);
 
-	Transaction sendFunds(unsigned char* recipient, float value, map<string, TransactionOutput>& UTXOs);
+	Transaction sendFunds(string recipient, float value, map<string, TransactionOutput>& UTXOs);
 
 	static EC_GROUP* getDefaultEcGroup();
 };
