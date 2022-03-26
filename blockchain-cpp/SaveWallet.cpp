@@ -1,9 +1,9 @@
 /*****************************************************************//**
- * \file   SaveChain.cpp
+ * \file   SaveWallet.cpp
  * \author WiDAYN
  * \date   26 March 2022
  *********************************************************************/
-#include "SaveChain.h"
+#include "SaveWallet.h"
 #include "StringUtil.h"
 #include <fstream>
 #include <boost/archive/binary_iarchive.hpp>
@@ -11,32 +11,37 @@
 #include <boost/serialization/vector.hpp>
 #include<boost/serialization/map.hpp>
 
-bool SaveChain::save(BlockChain& blockChain, ini_t* config)
+bool SaveWallet::save(Wallet& wallet, ini_t* config)
 {
-	const char* file = ini_get(config, "file", "blockchain");
+	const char* file = ini_get(config, "file", "wallet");
 	//–¥»Î
 	ofstream ss(file, ios::binary);
 	if (ss.is_open()) {
 		boost::archive::binary_oarchive oa(ss);
-		oa << blockChain;
+		oa << wallet;
 		ss.close();
-		StringUtil::printfSuccess("Saved blockChain");
+		StringUtil::printfSuccess("Saved wallet");
 		return true;
 	}
 	else {
-		StringUtil::printfError("Saved blockChain error");
+		StringUtil::printfError("¥Úø™ ß∞‹");
 		return false;
 	}
 	return true;
 }
 
-bool SaveChain::load(BlockChain& blockChain, ini_t* config) {
-	const char* file = ini_get(config, "file", "blockchain");
+bool SaveWallet::load(Wallet& wallet, ini_t* config)
+{
+	const char* file = ini_get(config, "file", "wallet");
 	ifstream is(file, std::ios::binary);
 	if (is.is_open()) {
 		boost::archive::binary_iarchive ia(is);
-		ia >> blockChain;
-		StringUtil::printfSuccess("Loaded blockChain");
+		ia >> wallet;
+		StringUtil::printfSuccess("Loaded wallet");
+	}
+	else {
+		wallet.generateKeyPair();
+		save(wallet, config);
 	}
 	is.close();
 	return true;

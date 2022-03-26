@@ -17,6 +17,15 @@
 #include "TransactionOutput.h"
 class Wallet {
 public:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive& ar, const unsigned int file_version)
+	{
+		ar& publicKeyChar;
+		ar& privateKeyChar;
+		ar& UTXOs;
+	}
+
 	EVP_PKEY* pkey = NULL;
 	string publicKeyChar;
 	string privateKeyChar;

@@ -28,6 +28,7 @@
 #include "TCP_Ping.h"
 #include "ini.h"
 #include "SaveChain.h"
+#include "SaveWallet.h"
 #pragma warning(disable : 4996)
 #pragma comment(lib,"ws2_32.lib")
 FILE _iob[] = { *stdin, *stdout, *stderr };
@@ -48,51 +49,51 @@ int main()
 	ini_t* config = ini_load("./config.ini");
 	BlockChain blockChain = BlockChain();
 	SaveChain::load(blockChain, config);
+	Wallet wallet;
+	SaveWallet::load(wallet, config);
 	//thread Server(runServer, config, ref(blockChain));
 	//Server.detach();
 
 	//TCP_Ping ping = TCP_Ping();
 	//ping.send("127.0.0.1", 8888);
 
-	Wallet walletA = Wallet();
-	Wallet walletB = Wallet();
-	Wallet coinbase = Wallet();
-	map<string, TransactionOutput> UTXOs;
-	blockChain.genesisTransaction.sender = coinbase.publicKeyChar;
-	blockChain.genesisTransaction.reciepient = walletA.publicKeyChar;
-	blockChain.genesisTransaction.transactionId = "0";
-	blockChain.genesisTransaction.value = 100;
-	blockChain.genesisTransaction.generateSignature(coinbase.privateKeyChar);
-	blockChain.genesisTransaction.outputs.push_back(TransactionOutput(blockChain.genesisTransaction.reciepient, blockChain.genesisTransaction.value, blockChain.genesisTransaction.transactionId));
-	UTXOs.insert(pair<string, TransactionOutput>(blockChain.genesisTransaction.outputs[0].id, blockChain.genesisTransaction.outputs[0]));
+	// = Wallet();
+	//Wallet walletB = Wallet();
+	//Wallet coinbase = Wallet();
+	//map<string, TransactionOutput> UTXOs;
+	//blockChain.genesisTransaction.sender = coinbase.publicKeyChar;
+	//blockChain.genesisTransaction.reciepient = walletA.publicKeyChar;
+	//blockChain.genesisTransaction.transactionId = "0";
+	//blockChain.genesisTransaction.value = 100;
+	//blockChain.genesisTransaction.generateSignature(coinbase.privateKeyChar);
+	//blockChain.genesisTransaction.outputs.push_back(TransactionOutput(blockChain.genesisTransaction.reciepient, blockChain.genesisTransaction.value, blockChain.genesisTransaction.transactionId));
+	//UTXOs.insert(pair<string, TransactionOutput>(blockChain.genesisTransaction.outputs[0].id, blockChain.genesisTransaction.outputs[0]));
 
-	StringUtil::printfInformation("Creating and Mining Genesis block... ");
-	Block genesis = Block("0");
-	genesis.addTransaction(blockChain.genesisTransaction, UTXOs);
-	blockChain.addBlock(genesis);
+	//StringUtil::printfInformation("Creating and Mining Genesis block... ");
+	//Block genesis = Block("0");
+	//genesis.addTransaction(blockChain.genesisTransaction, UTXOs);
+	//blockChain.addBlock(genesis);
 
-	Block block1 = Block(genesis.hash);
-	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
-	StringUtil::printfSuccess("\nWalletA is Attempting to send funds (40) to WalletB...");
-	block1.addTransaction(walletA.sendFunds(walletB.publicKeyChar, 40, UTXOs), UTXOs);
-	blockChain.addBlock(block1);
-	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
-	StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
-	StringUtil::printfSuccess("WalletB's balance is: " + to_string(coinbase.getBalance(UTXOs)));
+	while (1) {
+		Block block = Block(blockChain.getTop().hash);
+		blockChain.addBlock(block);
+	}
 
-	Block block2 = Block(block1.hash);
-	StringUtil::printfSuccess("\nWalletA Attempting to send more funds (1000) than it has...");
-	block2.addTransaction(walletA.sendFunds(walletB.publicKeyChar, 1000, UTXOs), UTXOs);
-	blockChain.addBlock(block2);
-	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
-	StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
+	//Block block2 = Block(block1.hash);
+	//StringUtil::printfSuccess("\nWalletA Attempting to send more funds (1000) than it has...");
+	//block2.addTransaction(walletA.sendFunds(walletB.publicKeyChar, 1000, UTXOs), UTXOs);
+	//blockChain.addBlock(block2);
+	//StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
+	//StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
 
-	Block block3 = Block(block2.hash);
-	StringUtil::printfSuccess("\nWalletB is Attempting to send funds (20) to WalletA...");
-	block3.addTransaction(walletB.sendFunds(walletA.publicKeyChar, 20, UTXOs), UTXOs);
-	StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
-	StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
+	//Block block3 = Block(block2.hash);
+	//StringUtil::printfSuccess("\nWalletB is Attempting to send funds (20) to WalletA...");
+	//block3.addTransaction(walletB.sendFunds(walletA.publicKeyChar, 20, UTXOs), UTXOs);
+	//StringUtil::printfSuccess("\nWalletA's balance is: " + to_string(walletA.getBalance(UTXOs)));
+	//StringUtil::printfSuccess("WalletB's balance is: " + to_string(walletB.getBalance(UTXOs)));
 
 	blockChain.isChainValid();
+	SaveWallet::save(wallet, config);
 	SaveChain::save(blockChain, config);
+
 }

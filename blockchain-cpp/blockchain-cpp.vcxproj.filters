@@ -70,10 +70,10 @@
     <Filter Include="头文件\Util\Files\ini">
       <UniqueIdentifier>{acc2497d-3abf-4648-aaf4-731192e4f991}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\Util\Files\SaveChain">
+    <Filter Include="头文件\Util\Files\Save">
       <UniqueIdentifier>{bc9ddfcb-8d3e-4e9c-b830-7670280c3e1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Util\SaveChain">
+    <Filter Include="源文件\Util\Save">
       <UniqueIdentifier>{9b7f32c1-5a53-46e4-97a5-18a9352ba42b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -130,7 +130,10 @@
       <Filter>源文件\Util\ini</Filter>
     </ClCompile>
     <ClCompile Include="SaveChain.cpp">
-      <Filter>源文件\Util\SaveChain</Filter>
+      <Filter>源文件\Util\Save</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveWallet.cpp">
+      <Filter>源文件\Util\Save</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +186,10 @@
       <Filter>头文件\Util\Files\ini</Filter>
     </ClInclude>
     <ClInclude Include="SaveChain.h">
-      <Filter>头文件\Util\Files\SaveChain</Filter>
+      <Filter>头文件\Util\Files\Save</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveWallet.h">
+      <Filter>头文件\Util\Files\Save</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

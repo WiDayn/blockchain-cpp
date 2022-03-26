@@ -89,3 +89,8 @@ bool BlockChain::isChainValid() {
 	StringUtil::printfSuccess("Blockchain is valid");
 	return true;
 }
+
+Block BlockChain::getTop()
+{
+	return blockChain.back();
+}

@@ -27,4 +27,6 @@ public:
 	void addBlock(Block& block);
 
 	bool isChainValid();
+
+	Block getTop();
 };

@@ -157,6 +157,7 @@
     <ClCompile Include="PingHandler.cpp" />
     <ClCompile Include="Routes.cpp" />
     <ClCompile Include="SaveChain.cpp" />
+    <ClCompile Include="SaveWallet.cpp" />
     <ClCompile Include="StringUtil.cpp" />
     <ClCompile Include="TCP_BasicInformation.cpp" />
     <ClCompile Include="TCP_Client.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="PingHandler.h" />
     <ClInclude Include="Routes.h" />
     <ClInclude Include="SaveChain.h" />
+    <ClInclude Include="SaveWallet.h" />
     <ClInclude Include="StringUtil.h" />
     <ClInclude Include="TCP_BasicInformation.h" />
     <ClInclude Include="TCP_Client.h" />

@@ -10,7 +10,6 @@
 #include "Transaction.h"
 
 Wallet::Wallet() {
-	generateKeyPair();
 }
 
 EC_GROUP* Wallet::getDefaultEcGroup() {
